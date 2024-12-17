@@ -1,0 +1,12 @@
+{
+  "type": "Theatre_Project_v5",
+  "sheetsById": {
+    "Main Sheet": {
+      "sequence": {
+        "length": 10,
+        "tracksByObject": {}
+      },
+      "staticOverrides": {}
+    }
+  }
+}
