@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import { SheetProvider, editable as e, PerspectiveCamera } from "@theatre/r3f";
+import { sheet } from "./theatre/project";
+import RotatingCartoonCube from "./components/RotatingCartoonCube";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+    return (
+        <>
+            <Canvas>
+                <SheetProvider sheet={sheet}>
+                    {/* Editable camera */}
+                    <PerspectiveCamera
+                        theatreKey="Camera"
+                        makeDefault
+                        position={[0, 0, 10]}
+                        fov={75}
+                    />
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+                    {/* Lights */}
+                    <e.ambientLight theatreKey="AmbientLight" intensity={0.5} />
+                    <e.pointLight
+                        theatreKey="PointLight"
+                        position={[10, 10, 10]}
+                    />
+
+                    {/* Our rotating cartoon-shaded cube */}
+                    <RotatingCartoonCube />
+
+                    <OrbitControls />
+                </SheetProvider>
+            </Canvas>
+        </>
+    );
 }
-
-export default App
